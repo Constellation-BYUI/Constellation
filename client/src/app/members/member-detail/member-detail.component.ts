@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
-import { member } from 'src/app/_models/member';
+import { Member } from 'src/app/_models/member';
 import { membersService } from 'src/app/_services/member.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { membersService } from 'src/app/_services/member.service';
   styleUrls: ['./member-detail.component.css']
 })
 export class MemberDetailComponent implements OnInit {
-  member: member;
+  member: Member;
 //to see documentation of Ngx Gallery https://www.npmjs.com/package/@kolkov/ngx-gallery
   galleryOptions: NgxGalleryOptions[];
   galleryImages: NgxGalleryImage[];
@@ -30,6 +30,7 @@ export class MemberDetailComponent implements OnInit {
         preview: false
       }
     ]
+
   }
 
   getImages(): NgxGalleryImage[] {

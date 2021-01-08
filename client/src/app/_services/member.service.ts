@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { member } from '../_models/member';
+import { Member } from '../_models/member';
 import { Subject } from 'rxjs';
 
 @Injectable({
@@ -8,9 +8,9 @@ import { Subject } from 'rxjs';
 })
 
 export class membersService {
-  memberListChangedEvent = new Subject<member[]>(); 
-  memberSelectedEvent = new Subject<member>(); 
-  members: member[] = [];
+  memberListChangedEvent = new Subject<Member[]>(); 
+  memberSelectedEvent = new Subject<Member>(); 
+  members: Member[] = [];
 
   baseUrl = 'https://localhost:5001/api/';
 
@@ -18,11 +18,11 @@ export class membersService {
 
   //GET ALL members
   getMembers(){
-    return this.http.get<member[]>(this.baseUrl + 'users');
+    return this.http.get<Member[]>(this.baseUrl + 'users');
 }
   //GET member BY username
   getMember(username: string) {
-    return this.http.get<member>(this.baseUrl + 'users/' + username);
+    return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 
 }
