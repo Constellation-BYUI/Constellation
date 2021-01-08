@@ -1,14 +1,14 @@
 import { Photo } from "./photo";
 
  
-export interface Member {                                       // export / Member
+export interface Member {                                       
     id: number;
     userName: string;
     photoUrl: string;
     age: number;
     knownAs: string;
-    created: Date;                                                      // changed to Date type
-    lastActive: Date;                                                  // changed to Date type
+    created: Date;                                                     
+    lastActive: Date;                                                 
     gender: string;
     introduction: string;
     lookingFor: string;
@@ -18,4 +18,3 @@ export interface Member {                                       // export / Memb
     photos: Photo[];
   }
   
-// moved photo to new .ts file
