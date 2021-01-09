@@ -14,13 +14,14 @@
     <strong>Age:</strong>
     <p>{{member.age}}</p>
 </div>
-<div>
+<!-- Live user 
+    <div>
     <strong>Last Active:</strong>
-    <p>{{member.lastActive}}</p>
-</div>
+    <p>{{member.lastActive | timeago }}</p>
+</div> -->
 <div>
     <strong>Member Since:</strong>
-    <p>{{member.created}}</p>
+    <p>{{member.created | date:"longDate"}}</p>
 </div>
 <div class="card-footer">
         <button [disabled]="!editForm.dirty" type="submit" form="editForm" class="btn btn-success btn-block">Save Changes</button>
