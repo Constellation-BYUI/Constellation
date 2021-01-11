@@ -35,7 +35,7 @@ namespace API.Controllers
         }
 
         [Authorize(Policy = "RequireAdminRole")]
-        [HttpGet("edit-roles/{username}")]
+        [HttpPost("edit-roles/{username}")]
         public async Task<ActionResult> EditRoles(string username, [FromQuery] string roles )
         {
            var selectedRoles = roles.Split(",").ToArray();
@@ -47,8 +47,8 @@ namespace API.Controllers
            var userRoles = await _userManager.GetRolesAsync(user);
 
            var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
-           if(!result.Succeeded) return BadRequest("Failed to add to roles");
 
+           if(!result.Succeeded) return BadRequest("Failed to add to roles");
 
            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
 
