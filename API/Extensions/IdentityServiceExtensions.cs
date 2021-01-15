@@ -12,19 +12,18 @@ namespace API.Extensions
 {
     public static class IdentityServiceExtensions
     {
-       public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
-       {
-        //    How to set up a MVC with Razor pages
-           //services.AddIdentity<>
-
-           services.AddIdentityCore<AppUser>( options => {
-               options.Password.RequireNonAlphanumeric = false;
-           })
-           .AddRoles<AppRole>()
-           .AddRoleManager<RoleManager<AppRole>>()
-           .AddSignInManager<SignInManager<AppUser>>()
-           .AddRoleValidator<RoleValidator<AppRole>>()
-           .AddEntityFrameworkStores<DataContext>();
+        public static IServiceCollection AddIdentityServices(this IServiceCollection services, 
+            IConfiguration config)
+        {
+            services.AddIdentityCore<AppUser>(opt =>
+            {
+                opt.Password.RequireNonAlphanumeric = false;
+            })
+                .AddRoles<AppRole>()
+                .AddRoleManager<RoleManager<AppRole>>()
+                .AddSignInManager<SignInManager<AppUser>>()
+                .AddRoleValidator<RoleValidator<AppRole>>()
+                .AddEntityFrameworkStores<DataContext>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options => 
@@ -36,7 +35,7 @@ namespace API.Extensions
                         ValidateIssuer = false,
                         ValidateAudience = false,
                     };
-
+                    
                     options.Events = new JwtBearerEvents
                     {
                         OnMessageReceived = context =>
@@ -44,7 +43,7 @@ namespace API.Extensions
                             var accessToken = context.Request.Query["access_token"];
 
                             var path = context.HttpContext.Request.Path;
-                            if(!string.IsNullOrEmpty(accessToken) && 
+                            if (!string.IsNullOrEmpty(accessToken) && 
                                 path.StartsWithSegments("/hubs"))
                             {
                                 context.Token = accessToken;
@@ -55,13 +54,13 @@ namespace API.Extensions
                     };
                 });
 
-            services.AddAuthorization( opt =>
+            services.AddAuthorization(opt => 
             {
                 opt.AddPolicy("RequireAdminRole", policy => policy.RequireRole("Admin"));
                 opt.AddPolicy("ModeratePhotoRole", policy => policy.RequireRole("Admin", "Moderator"));
             });
-
-        return services;
-       }
+            
+            return services;
+        }
     }
 }

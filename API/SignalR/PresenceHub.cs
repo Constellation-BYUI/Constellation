@@ -1,7 +1,9 @@
 using System;
 using System.Threading.Tasks;
 using API.Extensions;
+using API.Helpers;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace API.SignalR
@@ -15,25 +17,22 @@ namespace API.SignalR
             _tracker = tracker;
         }
 
-        //this implementation only works with one server -_- 
-        //we need to use a database to make it scalable 
         public override async Task OnConnectedAsync()
         {
-            await _tracker.UserConnnected(Context.User.GetUserName(), Context.ConnectionId);
-            await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUserName());
+            var isOnline = await _tracker.UserConnected(Context.User.GetUsername(), Context.ConnectionId);
+            if (isOnline)
+                await Clients.Others.SendAsync("UserIsOnline", Context.User.GetUsername());
 
             var currentUsers = await _tracker.GetOnlineUsers();
-            await Clients.All.SendAsync("GetOnlineUsers", currentUsers);
+            await Clients.Caller.SendAsync("GetOnlineUsers", currentUsers);
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)
         {
-
-            await _tracker.UserDiconnnected(Context.User.GetUserName(), Context.ConnectionId);
-            await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUserName());
-
-            var currentUsers = await _tracker.GetOnlineUsers();
-            await Clients.All.SendAsync("GetOnlineUsers", currentUsers);
+            var isOffline = await _tracker.UserDisconnected(Context.User.GetUsername(), Context.ConnectionId);
+            
+            if (isOffline)
+                await Clients.Others.SendAsync("UserIsOffline", Context.User.GetUsername());
 
             await base.OnDisconnectedAsync(exception);
         }

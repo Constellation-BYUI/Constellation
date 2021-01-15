@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Member } from '../_models/member';
 import { Pagination } from '../_models/pagination';
-import { membersService } from '../_services/member.service';
+import { MembersService } from '../_services/member.service';
 
 @Component({
   selector: 'app-lists',
@@ -15,7 +15,7 @@ export class ListsComponent implements OnInit {
   pageSize = 5;
   pagination: Pagination;
 
-  constructor(private membersService: membersService) { }
+  constructor(private membersService: MembersService) { }
 
   ngOnInit(): void {
     this.loadLikes();

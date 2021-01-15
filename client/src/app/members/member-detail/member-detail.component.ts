@@ -7,8 +7,8 @@ import { Member } from 'src/app/_models/member';
 import { Message } from 'src/app/_models/message';
 import { User } from 'src/app/_models/user';
 import { AccountService } from 'src/app/_services/account.service';
-import { membersService } from 'src/app/_services/member.service';
-import { MessagesService } from 'src/app/_services/messages.service';
+import { MembersService } from 'src/app/_services/member.service';
+import { MessageService } from 'src/app/_services/messages.service';
 import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class MemberDetailComponent implements OnInit, OnDestroy {
 
   constructor(public presence: PresenceService, 
               private route: ActivatedRoute,
-              private messageService: MessagesService,
+              private messageService: MessageService,
               private accountService: AccountService,
               private router: Router) { 
                 this.accountService.currentUser$.pipe(take(1)).subscribe(user => this.user = user);

@@ -6,7 +6,7 @@ import { Pagination } from 'src/app/_models/pagination';
 import { User } from 'src/app/_models/user';
 import { UserParams } from 'src/app/_models/userParams';
 import { AccountService } from 'src/app/_services/account.service';
-import { membersService } from 'src/app/_services/member.service';
+import { MembersService } from 'src/app/_services/member.service';
 
 @Component({
   selector: 'app-member-list',
@@ -19,7 +19,7 @@ export class MemberListComponent implements OnInit {
   userParams : UserParams;
   user: User;
   genderList = [{value: 'male', display: 'Males'}, {value: 'female', display: 'Females'}]
-  constructor(private memberService: membersService) {
+  constructor(private memberService: MembersService) {
       this.userParams = this.memberService.getUserParams();
    }
 

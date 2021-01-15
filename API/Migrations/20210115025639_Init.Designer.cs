@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20210112000145_GroupsAdded")]
-    partial class GroupsAdded
+    [Migration("20210115025639_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -204,7 +204,7 @@ namespace API.Migrations
                     b.Property<int>("RecipientId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("RecipientUserame")
+                    b.Property<string>("RecipientUsername")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("SenderDeleted")
@@ -372,13 +372,14 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Entities.Group", null)
                         .WithMany("Connections")
-                        .HasForeignKey("GroupName");
+                        .HasForeignKey("GroupName")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("API.Entities.Message", b =>
                 {
                     b.HasOne("API.Entities.AppUser", "Recipient")
-                        .WithMany("MessagesRecieved")
+                        .WithMany("MessagesReceived")
                         .HasForeignKey("RecipientId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -471,7 +472,7 @@ namespace API.Migrations
 
                     b.Navigation("LikedUsers");
 
-                    b.Navigation("MessagesRecieved");
+                    b.Navigation("MessagesReceived");
 
                     b.Navigation("MessagesSent");
 
