@@ -27,7 +27,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PaginationModule.forRoot(),
     ButtonsModule.forRoot(),
     TimeagoModule.forRoot(),
-    NgxSpinnerModule,
     ModalModule.forRoot()
   ],
   exports: [
@@ -40,7 +39,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     PaginationModule,
     ButtonsModule,
     TimeagoModule,
-    NgxSpinnerModule,
     ModalModule
   ]
 })

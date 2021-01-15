@@ -34,6 +34,7 @@ import { HasRoleDirective } from './_directives/has-role.directive';
 import { UserManagementComponent } from './admin/user-management/user-management.component';
 import { PhotoManagementComponent } from './admin/photo-management/photo-management.component';
 import { RolesModalComponent } from './modals/roles-modal/roles-modal.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { RolesModalComponent } from './modals/roles-modal/roles-modal.component'
     BrowserAnimationsModule,
     SharedModule,
     CommonModule,
+    NgxSpinnerModule,
     NgbModule
   ],
   providers: [
