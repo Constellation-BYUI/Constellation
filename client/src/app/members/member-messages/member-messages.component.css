@@ -1,4 +1,4 @@
-.card{
+.card {
     border: none;
 }
 
@@ -9,11 +9,11 @@
 }
 
 .chat li {
-    margin-bottom: 10;
-    padding-bottom: 10;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
     border-bottom: 1px dotted #B3A9A9;
 }
 
-.rounded-circle{
+.rounded-circle {
     max-height: 50px;
 }

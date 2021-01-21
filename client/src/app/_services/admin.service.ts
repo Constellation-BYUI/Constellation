@@ -7,7 +7,7 @@ import { User } from '../_models/user';
   providedIn: 'root'
 })
 export class AdminService {
-  baseUrl = 'https://localhost:5001/api/';
+  baseUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -15,7 +15,7 @@ export class AdminService {
     return this.http.get<Partial<User[]>>(this.baseUrl + 'admin/users-with-roles');
   }
 
-  updateUserRoles(username: string, roles: string[]){
+  updateUserRoles(username: string, roles: string[]) {
     return this.http.post(this.baseUrl + 'admin/edit-roles/' + username + '?roles=' + roles, {});
   }
 }

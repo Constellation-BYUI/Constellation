@@ -1,15 +1,13 @@
-import { Photo } from "./photo";
+import { Photo } from './photo';
 
- 
-export interface Member {                                       
+export interface Member {
     id: number;
-    userName: string;
     username: string;
     photoUrl: string;
     age: number;
     knownAs: string;
-    created: Date;                                                     
-    lastActive: Date;                                                 
+    created: Date;
+    lastActive: Date;
     gender: string;
     introduction: string;
     lookingFor: string;

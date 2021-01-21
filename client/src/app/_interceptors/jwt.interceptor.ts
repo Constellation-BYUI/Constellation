@@ -19,9 +19,9 @@ export class JwtInterceptor implements HttpInterceptor {
     let currentUser: User;
 
     this.accountService.currentUser$.pipe(take(1)).subscribe(user => currentUser = user);
-    if(currentUser){
+    if (currentUser) {
       request = request.clone({
-        setHeaders:  {
+        setHeaders: {
           Authorization: `Bearer ${currentUser.token}`
         }
       })
