@@ -20,6 +20,7 @@ namespace API.Interfaces
         Task<IEnumerable<ProjectLinkDto>> GetAllProjectLinksOfSite();
         Task<IEnumerable<ProjectLinkDto>> GetProjectLinksByProjectId(int projectId);
         Task<IEnumerable<ProjectPostingsDto>> GetAllProjectPostingsOfSite();
+        Task<IEnumerable<ProjectSkillsDto>> GetAllProjectSkillsOfSite();
 
 
     }

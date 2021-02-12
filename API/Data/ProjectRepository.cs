@@ -100,5 +100,12 @@ namespace API.Data
                 .ProjectTo<ProjectPostingsDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
+
+           public async Task<IEnumerable<ProjectSkillsDto>> GetAllProjectSkillsOfSite()
+        {
+              return await _context.ProjectSkills
+                .ProjectTo<ProjectSkillsDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
+        }
     }
 }

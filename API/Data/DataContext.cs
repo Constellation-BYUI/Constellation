@@ -41,6 +41,7 @@ namespace API.Data
         public DbSet<SkillLink> SkillLinks { get; set; }
         public DbSet<ProjectPosting> ProjectPosting { get; set; }
         public DbSet<UserSkillLink> UserSkillLinks { get; set; }
+        public DbSet<ProjectSkills> ProjectSkills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

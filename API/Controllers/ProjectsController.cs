@@ -28,6 +28,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers
 {
+    //Postman Link: https://www.getpostman.com/collections/10d9d497e9cff7847ba6
     public class ProjectsController : BaseApiController
     {
         private readonly IMapper _mapper;
@@ -58,25 +59,33 @@ namespace API.Controllers
         return(project);
         }
 
-        [HttpGet("userProjects")]
-        public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetUserProjects()
+        [HttpGet("userProjectsAll")]
+        public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetUserProjectsAll()
         {
             var userProjects = await _unitOfWork.ProjectRepository.GetAllUserProjectsOfSite();
             return Ok(userProjects);
         }
 
-        [HttpGet("projectLinks")]
+        [HttpGet("projectLinksAll")]
         public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetProjectLinksAll()
         {
             var allProjectLinksOfSite = await _unitOfWork.ProjectRepository.GetAllProjectLinksOfSite();
             return Ok(allProjectLinksOfSite);
         }
 
-         [HttpGet("projectPostings")]
-        public async Task<ActionResult<IEnumerable<ProjectPostingsDto>>> GetAllProjectPostingsOfSite()
+
+         [HttpGet("projectPostingsAll")]
+        public async Task<ActionResult<IEnumerable<ProjectPostingsDto>>> GetProjectPostingsOfSiteAll()
         {
             var userProjects = await _unitOfWork.ProjectRepository.GetAllProjectPostingsOfSite();
             return Ok(userProjects);
+        }
+
+        [HttpGet("projectSkillsAll")]
+        public async Task<ActionResult<IEnumerable<ProjectSkillsDto>>> GetProjectSkillsAll()
+        {
+            var projectSkills = await _unitOfWork.ProjectRepository.GetAllProjectSkillsOfSite();
+            return Ok(projectSkills);
         }
 
 
