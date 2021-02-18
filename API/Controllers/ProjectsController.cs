@@ -43,8 +43,11 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProjectDto>>> GetProjects()
         {
-            var projects = await _unitOfWork.ProjectRepository.GetProjectsAsync();
-
+            var projects = await _unitOfWork.ProjectRepository.GetProjects();
+            foreach(var project in projects){
+                project.UserProjects = await _unitOfWork.ProjectRepository.GetUserProjectCollaborators(project.ProjectID);
+                project.ProjectLinks = await _unitOfWork.ProjectRepository.GetProjectLinksByProjectId(project.ProjectID);
+            }
             return Ok(projects);
         }
 
@@ -53,7 +56,7 @@ namespace API.Controllers
         {
 
         var project = await _unitOfWork.ProjectRepository.GetProjectDtoAsync(projectId);
-
+        project.UserProjects = await _unitOfWork.ProjectRepository.GetUserProjectCollaborators(project.ProjectID);
         project.ProjectLinks = await _unitOfWork.ProjectRepository.GetProjectLinksByProjectId(projectId);
 
         return(project);
@@ -63,6 +66,21 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetUserProjectsAll()
         {
             var userProjects = await _unitOfWork.ProjectRepository.GetAllUserProjectsOfSite();
+            return Ok(userProjects);
+        }
+
+        [HttpGet("userProjectsFromUserId")]
+        public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetUserProjectsOfUser()
+        {
+           var sourceUserId = User.GetUserId();
+            var userProjects = await _unitOfWork.ProjectRepository.GetUserProjectsOfUser(sourceUserId);
+            return Ok(userProjects);
+        }
+
+        [HttpGet("userProjectsFromProjectId/{projectId}")]
+        public async Task<ActionResult<IEnumerable<UserProjectDto>>> GetUserProjectsOfProject(int projectId)
+        {
+            var userProjects = await _unitOfWork.ProjectRepository.GetUserProjectCollaborators(projectId);
             return Ok(userProjects);
         }
 

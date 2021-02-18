@@ -46,11 +46,6 @@ namespace API.Data
         {
             var query = _context.Projects.AsQueryable();
 
-
-            var minDob = DateTime.Today.AddYears(-userParams.MaxAge - 1);
-            var maxDob = DateTime.Today.AddYears(-userParams.MinAge);
-
-
             query = userParams.OrderBy switch
             {
                 "created" => query.OrderByDescending(u => u.CreationDate),
@@ -61,6 +56,13 @@ namespace API.Data
                 .ConfigurationProvider).AsNoTracking(), 
                     userParams.PageNumber, userParams.PageSize);
 
+        }
+
+           public async Task<IEnumerable<ProjectDto>> GetProjects()
+        {         
+              return await _context.Projects
+                .ProjectTo<ProjectDto>(_mapper.ConfigurationProvider)
+                .ToListAsync();
         }
 
     
@@ -78,6 +80,23 @@ namespace API.Data
                 .ProjectTo<UserProjectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
+
+        public async Task<IEnumerable<UserProjectDto>> GetUserProjectsOfUser(int sourceUserId)
+        {
+              return await _context.UserProjects
+                .ProjectTo<UserProjectDto>(_mapper.ConfigurationProvider)
+                .Where(i => i.UserID == sourceUserId)
+                .ToListAsync();
+        }
+
+          public async Task<IEnumerable<UserProjectDto>> GetUserProjectCollaborators(int projectId)
+        {
+              return await _context.UserProjects
+                .ProjectTo<UserProjectDto>(_mapper.ConfigurationProvider)
+                .Where(i => i.ProjectID == projectId)
+                .ToListAsync();
+        }
+
 
          public async Task<IEnumerable<ProjectLinkDto>> GetAllProjectLinksOfSite()
         {
